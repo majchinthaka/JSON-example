@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <script src="library/jquery-latest.js"></script>
+</head>
+<body>
+    <p>
+        <label for="txt_uname">Username</label>
+        <input type="text" id="txt_uname"/>
+    </p>
+
+    <p>
+        <label for="txt_pass">Password</label>
+        <input type="password" id="txt_pass"/>
+    </p>
+
+    <p>
+        <button id="submit">Submit</button>
+    </p>
+</body>
+</html>
+
+<script>
+    $('#submit').click(function () {
+
+        var username = $('#txt_uname').val();
+        var password = $('#txt_pass').val();
+
+        //Read JSON format result
+        $.ajax({
+           type: 'POST',
+            url: 'backend.php',
+            dataType: "json",
+            data:{uname: username, pass: password},
+            success:function (data) {
+                alert(
+                    "Name : " + data.name +
+                    "\n" + "Address : " + data.address
+                );
+            }
+        }).fail(function () {
+            alert("Invalid Username or Password!")
+        });
+    });
+</script>
